@@ -29,7 +29,7 @@ export const activityService = () => {
   const remove = async (id: string | number) => {
     return await api.apiRequest(`/activity/${id}`, {
       method: 'DELETE'
-    }, 'fetch')
+    }, 'axios')
   }
 
   return {

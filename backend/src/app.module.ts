@@ -23,7 +23,6 @@ import { UsersModule } from './users/user.module';
       database: process.env.DATABASE_NAME || 'test',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: [__dirname + 'src/migrations/*{.ts,.js}'],
-      synchronize: true,
       autoLoadEntities: true,
     }),
     AuthModule,

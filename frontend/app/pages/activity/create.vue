@@ -35,7 +35,7 @@
                 </div>
 
 
-            <Button type="submit" @click="handleAddActivity">Créer l'activité</Button>
+            <Button icon="pi pi-search" type="submit" @click="handleAddActivity" :loading="loading" label="Créer l'activité"/>
         </div>
     </div>
 </template>
@@ -43,6 +43,7 @@
 <script setup lang="ts">
 import type { ActivityType, ActivityField } from '~/types/activity'
 import { ref, watch } from 'vue'
+import {navigateTo} from "#app";
 
 const { types, fetchTypes } = useActivityType()
 const { addActivity } = useActivity()
@@ -52,6 +53,7 @@ const type = ref<ActivityType>()
 const duration = ref<number>(0)
 const calories = ref<number>(0)
 const distance = ref<number>(0)
+const loading = ref<boolean>(false)
 
 // 🔹 Quand le type change, on initialise les champs avec value = 0 ou '' selon le type
 watch(type, (newType) => {
@@ -80,7 +82,7 @@ watch(type, (newType) => {
 
 const handleAddActivity = async () => {
   if (!type.value) return
-
+  loading.value = true
   const metadata = type.value.fields?.reduce((acc, field) => {
     acc[field.key] = field.value
     return acc
@@ -90,5 +92,7 @@ const handleAddActivity = async () => {
     typeId: type.value.id,
     metadata
   })
+  loading.value = false
+  navigateTo('/')
 }
 </script>

@@ -4,14 +4,22 @@ import { useRoute } from 'vue-router'
 import { useActivity } from '~/composables/useActivity'
 import { useDate } from '~/composables/useDate'
 import {UserBadge} from "~/components/common/User";
+import Popover from 'primevue/popover';
 
 const route = useRoute()
 const id = route.params.id
 
-const { fetchActivity } = useActivity()
+const { fetchActivity, removeActivity } = useActivity()
 const { data: activity } = await useAsyncData('activity', () => fetchActivity(id), { server: true })
 
-const { formattedDate } = useDate(activity.value.date)
+const { formattedDate } = useDate(activity.value?.date)
+
+
+
+const op = ref()
+const toggle = (event) => {
+  op.value.toggle(event);
+}
 
 // 🔹 Computed pour enrichir les fields avec leur valeur
 const fieldsWithValues = computed(() => {
@@ -26,12 +34,23 @@ const fieldsWithValues = computed(() => {
 </script>
 
 <template>
-  <div>
-    <CommonReturn>
-      <p class="font-medium text-lg" v-if="activity.type && formattedDate">
-        {{ activity.type.name }} du {{ formattedDate }}
-      </p>
-    </CommonReturn>
+  <div v-if="activity">
+    <div class="flex items-center justify-between gap-2">
+      <CommonReturn>
+        <p class="font-medium text-lg" v-if="activity.type && formattedDate">
+          {{ activity.type.name }} du {{ formattedDate }}
+        </p>
+      </CommonReturn>
+      <div>
+        <button @click="toggle"><Icon name="material-symbols:more-vert" size="36px"/></button>
+      </div>
+    </div>
+    <Popover ref="op">
+      <div class="flex flex-col w-48 gap-2">
+        <Button>Modifier</Button>
+        <Button severity="danger" @click="removeActivity(activity.id)">Supprimer</Button>
+      </div>
+    </Popover>
 
     <div class="flex items-center gap-1 mt-4">
       <UserBadge size="large" :user="activity.user"/>

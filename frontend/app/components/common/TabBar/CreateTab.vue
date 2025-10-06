@@ -7,7 +7,7 @@
             <NuxtLink to="/activity/create" @click="visible = false" class="flex gap-2 items-center">
                 <p class="text-primary bg-primary-contrast h-fit p-2 rounded">Ajouter une séance</p>
                 <button class="border border-primary-300 flex gap-2 h-12 w-12 backdrop-blur-sm flex justify-center items-center rounded-full bg-primary/10">
-                    <Icon name="material-symbols:exercise" size="36px" class="text-primary-contrast"/>
+                    <Icon name="material-symbols:exercise" size="36px" class="text-contrast-primary"/>
                 </button>
             </NuxtLink>
         </div>
