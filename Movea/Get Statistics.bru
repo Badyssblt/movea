@@ -1,0 +1,24 @@
+meta {
+  name: Get Statistics
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/activity-type
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "type": "RUNNING",
+    "duration": "30",
+    "calories": 430,
+    "distance": "2.96"
+  }
+}

@@ -1,0 +1,24 @@
+meta {
+  name: Get My Activities
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/activity/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "type": "RUNNING",
+    "duration": "30",
+    "calories": 430,
+    "distance": "2.96"
+  }
+}

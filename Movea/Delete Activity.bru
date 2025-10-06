@@ -1,0 +1,21 @@
+meta {
+  name: Delete Activity
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/activity/07d1cf73-acf5-453d-bdbb-ccfcf4dcfd7c
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "type": "WALKING"
+  }
+}

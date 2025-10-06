@@ -1,0 +1,24 @@
+meta {
+  name: Create Activity
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/activity/create
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "typeId": "ee57f762-a058-11f0-a4bf-0242ac130002",
+    "duration": "30",
+    "calories": 430,
+    "distance": "2.96"
+  }
+}
