@@ -12,6 +12,10 @@ export class ActivityType {
   @Column({ type: 'json' })
   fields: Record<string, any>[];
 
+  @Column({type: 'json'})
+  formulas: Record<string, any>[];
+
   @OneToMany(() => Activity, (activity) => activity.type)
   activities: Activity[];
+
 }

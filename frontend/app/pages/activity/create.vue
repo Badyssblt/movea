@@ -11,7 +11,7 @@
                 <Select v-model="type" id="type"  :options="types" option-label="name" placeholder="Veuillez sélectionner un type de sport"/>
             </div>
 
-            <div v-if="type" class="flex flex-col" v-for="field in type.fields" :key="field.key">
+            <div v-if="type" class="flex flex-col" v-for="field in fields" :key="field.key">
                 <label>{{ field.label }}</label>
                 <div class="flex flex-col gap-4">
                     <InputText
@@ -55,29 +55,13 @@ const calories = ref<number>(0)
 const distance = ref<number>(0)
 const loading = ref<boolean>(false)
 
+const fields = ref()
+
 // 🔹 Quand le type change, on initialise les champs avec value = 0 ou '' selon le type
 watch(type, (newType) => {
-  if (newType?.fields) {
-    newType.fields.forEach((field: ActivityField & { value?: any }) => {
-      switch(field.type) {
-        case 'number':
-          field.value = 0
-          break
-        case 'text':
-          field.value = ''
-          break
-        case 'boolean':
-          field.value = false
-          break
-        case 'select':
-          field.value = field.options?.[0] || ''
-          break
-        case 'date':
-          field.value = ''
-          break
-      }
-    })
-  }
+
+  const { fields: calculatedFields } = useActivityCalculation(newType)
+  fields.value = calculatedFields
 })
 
 const handleAddActivity = async () => {

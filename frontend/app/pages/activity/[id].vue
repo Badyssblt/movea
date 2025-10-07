@@ -34,7 +34,7 @@ const fieldsWithValues = computed(() => {
 </script>
 
 <template>
-  <div v-if="activity">
+  <div>
     <div class="flex items-center justify-between gap-2">
       <CommonReturn>
         <p class="font-medium text-lg" v-if="activity.type && formattedDate">
